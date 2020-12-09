@@ -1,18 +1,37 @@
-package com.bridgelabz.hotelmanagement;
+package com.bridgelabz.hotelmanagementservice;
 
-public class HotelManagementService { 
-	ArrayList<Hotel> hotelList = new ArrayList<>();
-	Scanner scanner = new Scanner(System.in);
-	
-	public void addHotel() {
-        Hotel hotel = new Hotel();
-        System.out.println("Enter Hotel Name");
-        String name = scanner.next();
-        System.out.println("Enter rate ");
-        float rate = scanner.nextFloat();
-        hotel.setHotelName(name);
-        hotel.setRate(rate);
-        hotelManagementSystem.hotelList.add(hotel);
-        System.out.println(hotelList);
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+public class HotelManagementService {
+    Scanner scanner = new Scanner(System.in);
+    List<Hotel> hotelList = new ArrayList<>();
+
+    public int findDateDifference(String startDate, String endDate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        Date firstDate = sdf.parse(startDate);
+        Date secondDate = sdf.parse(endDate);
+        long differenceInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        int days = (int) TimeUnit.DAYS.convert(differenceInMillies, TimeUnit.MILLISECONDS);
+        return days;
+    }
+
+    Comparator<Hotel> minComparator = new Comparator<Hotel>() {
+        @Override
+        public int compare(Hotel h1, Hotel h2) {
+            return h1.compareTo(h2);
+
+        }
+    };
+
+
+    public Hotel findCheapestHotel(int numDays) {
+        int lowestRate;
+        Optional<Hotel> hotel = hotelList.stream()
+                .min(minComparator);
+        return hotel.get();
     }
 }
+
