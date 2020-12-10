@@ -27,6 +27,9 @@ public class Application {
                     break;
                 case "2":
                     findCheapestHotel();
+		case "3":
+			findCheapestHotel1();
+			break;
                 case "10" :
                     System.exit(0);
             }
@@ -76,4 +79,34 @@ public class Application {
             System.out.println("Cheapest hotel is " + cheapestHote2.getName() + " having rate $" + totalRate);
         }
     }
+
+	public void findCheapestHotel1() throws ParseException {
+
+        	System.out.println("Enter check-In Date : (dd/mm/yyyy)");
+        	String checkInDate = scanner.next();
+        	System.out.println("Enter check-Out Date : (dd/mm/yyyy)");
+        	String checkOutDate = scanner.next();
+
+        	String Day1 = hotelManagementSystem.findDayOfWeek(checkInDate);
+        	String Day2 = hotelManagementSystem.findDayOfWeek(checkOutDate);
+
+        	int days = hotelManagementSystem.findDateDifference(checkInDate, checkOutDate);
+        	System.out.println("Number of days stying in hotel " + days);
+
+        	Hotel cheapestHotel = hotelManagementSystem.findCheapestHotel(days);
+        	float totalRate = cheapestHotel.getRate() * days;
+        
+        	ArrayList<Hotel> bestRatedlist = new ArrayList<>();
+        	for(Hotel hotel : hotelManagementSystem.hotelList) {
+        		if(hotel.getRatings() >= 4) {
+        			bestRatedlist.add(hotel);
+        		}
+        	}
+        	System.out.println("Best rated hotel is:" +bestRatedlist);
+       
+        	bestRatedlist.stream();
+        	bestRatedlist.sort(Comparator.comparing(Hotel::getRate));
+        	bestRatedlist.forEach((Hotel h) -> System.out.println(h.getHotelName() + h.getRate()*days + h.getRatings()));
+        
+	}
 }
