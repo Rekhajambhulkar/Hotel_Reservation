@@ -1,5 +1,5 @@
-package com.bridgelabz.hotelmanagementservice;
-
+package com.bridgelabz.hotelreservatonservice;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -18,6 +18,16 @@ public class HotelManagementService {
         return days;
     }
 
+    public String findDayOfWeek(String date) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("EEEE");
+
+        Date day = sdf.parse(date);
+        String dayOfWeek = df.format(day);
+        System.out.println("Day is : " +dayOfWeek);
+        return dayOfWeek;
+    }
+
     Comparator<Hotel> minComparator = new Comparator<Hotel>() {
         @Override
         public int compare(Hotel h1, Hotel h2) {
@@ -33,5 +43,6 @@ public class HotelManagementService {
                 .min(minComparator);
         return hotel.get();
     }
-}
 
+
+}

@@ -1,47 +1,49 @@
-package com.bridgelabz.hotelmanagement;
+package com.bridgelabz.hotelreservatonservice;
 
-public class Hotel {
-	private String HotelName;
-	private int rates;
-        private float weekendRate;
+public class Hotel implements Comparable<Hotel> {
+    private String HotelName;
+    private float rate;
+    private float weekendRate;
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelname) {
+        this.hotelName = hotelName;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
+    public float getWeekendRate() {
+        return weekendRate;
+    }
+
+    public void setWeekendRate(float weekendRate) {
+        this.weekendRate = weekendRate;
+    }
 
 
-public Hotel(String hotelName, int rates) {
-		this.HotelName = hotelName;
-		this.rates = rates;
-	}
 
-	public String getHotelName() {
-		return HotelName;
-	}
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "hotelName='" + hotelName + '\'' +
+                ", rate=" + rate +
+                ", weekendRate=" + weekendRate +'}';
+    }
 
-	public void setHotelName(String hotelName) {
-		HotelName = hotelName;
-	}
 
-	public int getRates() {
-		return rates;
-	}
+    @Override
+    public int compareTo(Hotel h) {
+        return (int) (this.rate - h.rate);
+    }
 
-	public void setRates(int rates) {
-		this.rates = rates;
-	}
 
- 	public float getWeekendRate() {
-        	return weekendRate;
-    	}
-
-    	public void setWeekendRate(float weekendRate) {
-        	this.weekendRate = weekendRate;
-    	}
-
-	@Override
-	public String toString() {
-		return "Hotel [HotelName=" + HotelName + ", rates=" + rates + ", weekendrate = " + weekendRate + "]";
-	}
-
-	 @Override
-    	public int compareTo(Hotel h) {
-        	return (int) (this.rate - h.rate);
-    	}
 }
